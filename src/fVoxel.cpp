@@ -1,4 +1,4 @@
-#include "FVoxel.h"
+#include "fVoxel.hpp"
 
 #include <fstream>
 #include <filesystem>
