@@ -7,6 +7,46 @@
 #include <cmath>
 
 // ----------------------------------------------------------------------------------------------------
+// fProcMesh
+// ----------------------------------------------------------------------------------------------------
+
+fProcMesh& fProcMesh::operator+=(const fProcMesh& REF_Other) {
+	fUInt VNum = REF_Other.Vertecies.size();
+	if (VNum > 0) {
+		for (fUInt X = 0; X < VNum; X++) {
+			Vertecies.push_back(REF_Other.Vertecies[X]);
+			Normals.push_back(REF_Other.Normals[X]);
+		}
+	}
+
+	fUInt UNum = REF_Other.UVs.size();
+	if (UNum > 0) {
+		for(fUInt X = 0; X < UNum; X++) { UVs.push_back(REF_Other.UVs[X]); }
+	}
+
+	return *this;
+}
+
+// ----------------------------------------------------------------------------------------------------
+// fVoxelBlock
+// ----------------------------------------------------------------------------------------------------
+
+fVoxelBlock::fVoxelBlock(fUInt IN_UID, std::string IN_Name, fVector2ui IN_Texture, fUChar IN_Flags) {
+	UID = IN_UID;
+	Name = IN_Name;
+	Texture = IN_Texture;
+	Flags = IN_Flags;
+}
+
+// ----------------------------------------------------------------------------------------------------
+// fVoxelLocalPos
+// ----------------------------------------------------------------------------------------------------
+
+std::string fVoxelLocalPos::ToString() {
+	return "[" + std::to_string(ChunkX) + "," + std::to_string(ChunkZ) + "]->[" + std::to_string(LocalX) + "," + std::to_string(LocalY) + "," + std::to_string(LocalZ) + "]";
+}
+
+// ----------------------------------------------------------------------------------------------------
 // FVoxelChunk
 // ----------------------------------------------------------------------------------------------------
 
