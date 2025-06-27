@@ -131,7 +131,7 @@ private:
 	fLong BlocksPerChunk = 0;
 	
 	// Number of vertecies in each SubMesh 
-	// Calculated in "_Internal_Init()"
+	// To avoid getting to count vectors at each voxel mesh generation
 	fUInt TempVertNum_Front = 0;
 	fUInt TempVertNum_Back = 0;
 	fUInt TempVertNum_Left = 0;
@@ -232,6 +232,8 @@ protected:
 	// Allocates memory for chunks and BlockLists
 	void _Internal_Init();
 	
+	void _Internal_CalculateTempVerts();
+
 	fBool _Internal_SaveWorldProp();
 	fBool _Internal_LoadWorldProp();
 	

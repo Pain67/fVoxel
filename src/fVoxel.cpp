@@ -301,6 +301,10 @@ void fVoxelWorld::_Internal_Init() {
 		std::filesystem::create_directories(Path);
 	}
 	
+	_Internal_CalculateTempVerts();
+}
+
+void _Internal_CalculateTempVerts() {
 	// Calculate Mesh Vertecies
 	TempVertNum_Front = FoxelMesh[0].Vertecies.size();
 	TempVertNum_Back = FoxelMesh[1].Vertecies.size();
@@ -309,7 +313,6 @@ void fVoxelWorld::_Internal_Init() {
 	TempVertNum_Top = FoxelMesh[4].Vertecies.size();
 	TempVertNum_Bottom = FoxelMesh[5].Vertecies.size();
 	TempVertNum_Always = FoxelMesh[6].Vertecies.size();
-}
 
 fBool fVoxelWorld::_Internal_SaveWorldProp() {
 	fUInt Props[7] = {
@@ -1172,7 +1175,9 @@ fBool fVoxelWorld::SetVoxelMesh(std::vector<fProcMesh> IN_MeshList) {
 	FoxelMesh[4] = IN_MeshList[4];
 	FoxelMesh[5] = IN_MeshList[5];
 	FoxelMesh[6] = IN_MeshList[6];
-	
+
+	_Internal_CalculateTempVerts();
+
 	return true;
 }
 void fVoxelWorld::UseDefaultVoxelMesh() {
@@ -1350,6 +1355,8 @@ void fVoxelWorld::UseDefaultVoxelMesh() {
 	FoxelMesh[5].UVs.push_back({1.0F, 0.0F});
 	FoxelMesh[5].UVs.push_back({1.0F, 1.0F});
 	FoxelMesh[5].UVs.push_back({0.0F, 0.0F});
+
+	_Internal_CalculateTempVerts();
 }
 fVoxelLocalPos fVoxelWorld::GetVoxelLocalPos(fInt IN_GlobalX, fInt IN_GlobalY, fInt IN_GlobalZ) {
 	fVoxelLocalPos Result;
