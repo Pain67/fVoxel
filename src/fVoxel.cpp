@@ -304,7 +304,7 @@ void fVoxelWorld::_Internal_Init() {
 	_Internal_CalculateTempVerts();
 }
 
-void _Internal_CalculateTempVerts() {
+void fVoxelWorld::_Internal_CalculateTempVerts() {
 	// Calculate Mesh Vertecies
 	TempVertNum_Front = FoxelMesh[0].Vertecies.size();
 	TempVertNum_Back = FoxelMesh[1].Vertecies.size();
@@ -313,6 +313,7 @@ void _Internal_CalculateTempVerts() {
 	TempVertNum_Top = FoxelMesh[4].Vertecies.size();
 	TempVertNum_Bottom = FoxelMesh[5].Vertecies.size();
 	TempVertNum_Always = FoxelMesh[6].Vertecies.size();
+}
 
 fBool fVoxelWorld::_Internal_SaveWorldProp() {
 	fUInt Props[7] = {
