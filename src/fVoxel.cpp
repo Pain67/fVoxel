@@ -773,14 +773,24 @@ fBool fVoxelWorld::_Internal_GenerateVoxel(fUInt IN_ChunkIndex, fUInt IN_BlockIn
 }
 
 
-fBool fVoxelWorld::CreateWorld(std::string IN_FolderPath) {
+fBool fVoxelWorld::CreateWorld(std::string IN_FolderPath, fBool IN_isForceCreate) {
     if (isInit) {
         Log(F_LOG_SEV_ERROR,"FVoxelWorld","Unable to Create world. A world is already initialised.");
         return false;
     }
 
     SavePath = IN_FolderPath;
+    if (SavePath.length() == 0) {
+        // Assume save path is the current directoru
+        SavePath = std::filesystem::current_path();
+    }
     if (SavePath[SavePath.length() - 1] != '/') { SavePath += '/'; }
+
+    if (IN_isForceCreate) {
+        // see if directory already exist
+        std::string CheckPath = SavePath + WorldFolderName;
+        std::filesystem::remove_all(CheckPath);
+    }
 
     std::string FileName = GetWorldFile();
 
@@ -799,7 +809,7 @@ fBool fVoxelWorld::CreateWorld(std::string IN_FolderPath) {
     _Internal_Init();
     isInit = true;
 
-    return false;
+    return true;
 }
 fBool fVoxelWorld::LoadWorld(std::string IN_FilePath) {
     if (isInit) {
@@ -828,7 +838,7 @@ fBool fVoxelWorld::LoadWorld(std::string IN_FilePath) {
     _Internal_Init();
     isInit = true;
 
-    return false;
+    return true;
 }
 fBool fVoxelWorld::isWorldExist(std::string IN_FilePath) {
     return IO_isFileExist(IN_FilePath);

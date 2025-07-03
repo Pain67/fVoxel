@@ -463,7 +463,8 @@ public:
 
     // Creates a new Voxel World
     //      @ IN_FolderPath - Absolute path to the folder where the world data will be saved
-    fBool CreateWorld(std::string IN_FolderPath);
+    //      @ IN_isForceCreate - If set to true, will check and remove the target folder if already exist
+    fBool CreateWorld(std::string IN_FolderPath, fBool IN_isForceCreate = false);
 
     // Loads an existing Voxel Wolrd
     //      @ IN_FilePath - Absolute path to the Voxel World file to load from
